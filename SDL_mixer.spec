@@ -1,6 +1,6 @@
 %define	name	SDL_mixer
 %define	version	1.2.7
-%define	rel	5
+%define	rel	6
 %define	lib_name_orig lib%{name}
 %define	lib_major 1.2
 %define	lib_name %mklibname %{name} %{lib_major}
