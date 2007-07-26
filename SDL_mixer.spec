@@ -1,6 +1,6 @@
 %define	name	SDL_mixer
-%define	version	1.2.7
-%define	rel	6
+%define	version	1.2.8
+%define	rel	1
 %define	lib_name_orig lib%{name}
 %define	lib_major 1.2
 %define	lib_name %mklibname %{name} %{lib_major}
@@ -68,17 +68,17 @@ This package contains binary to test the associated library.
 %prep
 %setup -q
 %patch1 -p1 -b .timidity
-%patch2 -p1 -b .libmikmod
-%patch3 -p0 -b .timidity_crash
+#patch2 -p1 -b .libmikmod
+#patch3 -p0 -b .timidity_crash
 %patch4 -p0 -b .64bit
-%patch5 -p0 -b .endian
+#patch5 -p0 -b .endian
 
 %build
 #gw our libtool is too old
 %define __cputoolize true
 aclocal
 autoconf
-%configure2_5x	--enable-music-libmikmod \
+%configure2_5x	--enable-music-libmikmod=yes \
 		--enable-music-native-midi \
 		--disable-music-ogg-shared \
 		--disable-music-mp3-shared
