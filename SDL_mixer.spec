@@ -17,7 +17,6 @@ Patch4:		SDL_mixer-1.2.4-64bit-fix.patch
 Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
 License:	LGPL
 Group:		System/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
