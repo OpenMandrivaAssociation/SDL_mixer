@@ -1,29 +1,27 @@
-%define	name	SDL_mixer
-%define	version	1.2.8
-%define	rel	1
-%define	lib_name_orig lib%{name}
-%define	lib_major 1.2
-%define	lib_name %mklibname %{name} %{lib_major}
+%define	major 0
+%define apiver 1.2
+%define	libname %mklibname %{name} %{apiver} %{major}
+%define develname %mklibname %{name} -d
 
 Summary:	Simple DirectMedia Layer - mixer
-Name:		%{name}
-Version:	%{version}
-Release:	%mkrel %{rel}
+Name:		SDL_mixer
+Version:	1.2.8
+Release:	%mkrel 2
+License:	LGPLv+2
+Group:		System/Libraries
+URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.bz2
 Patch1:		SDL_mixer-1.2.7-fix-path-timidity.patch
 Patch2:		SDL_mixer-1.2.7-link-against-system-libmikmod.patch
 Patch3:		SDL_mixer-1.2.7-timidity-crash.patch
 Patch4:		SDL_mixer-1.2.4-64bit-fix.patch
 Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
-License:	LGPL
-Group:		System/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-URL:		http://www.libsdl.org/projects/SDL_mixer/
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	smpeg-devel >= 0.4.3
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 SDL_mixer is a sample multi-channel audio mixer library. It supports any
@@ -31,38 +29,36 @@ number of simultaneously playing channels of 16 bit stereo audio, plus a
 single channel of music, mixed by the popular MikMod MOD, Timidity MIDI
 and SMPEG MP3 libraries.
 
-%package -n	%{lib_name}
+%package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
-Obsoletes:	%{name}
-Provides:	%{name}
 
-%description -n	%{lib_name}
+%description -n	%{libname}
 This package contains the library needed to run programs dynamically
 linked with %{name}.
 
-%package -n	%{lib_name}-devel
+%package -n %{develname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
-Requires:	%{lib_name} = %{version}
+Requires:	%{libname} = %{version}-%{version}
 Requires:	SDL-devel
-Provides:	%{lib_name_orig}-devel = %{version}-%{release}
-Provides:	%{name}%{lib_major}-devel = %{version}-%{release}
-Obsoletes:	%{name}-devel
-Provides:	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	%{name}%{apiver}-devel = %{version}-%{release}
+Obsoletes:	%mklibname %{name} 1.2 -d
+Provides:	%mklibname %{name} 1.2 -d
 
-%description -n %{lib_name}-devel
+%description -n %{develname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
-%package -n	%{name}-player
+%package -n %{name}-player
 Summary:	Players using %{name}
 Group:		System/Libraries
-Obsoletes:	%{lib_name}-test
-Provides:	%{lib_name}-test
-Requires:	%{lib_name} >= 1.2.6-2mdk
+Obsoletes:	%{libname}-test
+Provides:	%{libname}-test
+Requires:	%{libname} = %{version}-%{release}
 
-%description -n	%{name}-player
+%description -n %{name}-player
 This package contains binary to test the associated library.
 
 %prep
@@ -86,11 +82,11 @@ autoconf
 
 %install
 rm -rf %{buildroot}
-%makeinstall install-bin
+%makeinstall_std install-bin
 
-%post -n %{lib_name} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
 
-%postun -n %{lib_name} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 
 %clean
 rm -rf %{buildroot}
@@ -101,17 +97,15 @@ rm -rf %{buildroot}
 %{_bindir}/playwave
 %{_bindir}/playmus
 
-%files -n %{lib_name}
+%files -n %{libname}
 %defattr(-,root,root)
 %doc mikmod/AUTHORS mikmod/README
 %doc timidity/FAQ timidity/README
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*%{apiver}.so.%{major}*
 
-%files -n %{lib_name}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc README CHANGES
 %{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
-
-
