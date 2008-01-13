@@ -6,7 +6,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	1.2.8
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv+2
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -32,6 +32,7 @@ and SMPEG MP3 libraries.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
+Obsoletes:	%{_lib}SDL_mixer1.2 < 1.2.8-2
 
 %description -n	%{libname}
 This package contains the library needed to run programs dynamically
@@ -40,12 +41,12 @@ linked with %{name}.
 %package -n %{develname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
-Requires:	%{libname} = %{version}-%{version}
+Requires:	%{libname} = %{version}-%{release}
 Requires:	SDL-devel
+Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}%{apiver}-devel = %{version}-%{release}
-Obsoletes:	%mklibname %{name} 1.2 -d
-Provides:	%mklibname %{name} 1.2 -d
+Obsoletes:	%{_lib}SDL_mixer1.2-devel < 1.2.8-2
 
 %description -n %{develname}
 This package contains the headers that programmers will need to develop
@@ -54,8 +55,7 @@ applications which will use %{name}.
 %package -n %{name}-player
 Summary:	Players using %{name}
 Group:		System/Libraries
-Obsoletes:	%{libname}-test
-Provides:	%{libname}-test
+Obsoletes:	%{_lib}SDL_mixer-test < 1.2.8-3
 Requires:	%{libname} = %{version}-%{release}
 
 %description -n %{name}-player
