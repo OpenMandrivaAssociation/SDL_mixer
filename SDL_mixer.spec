@@ -6,7 +6,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	1.2.8
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	LGPLv+2
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -43,7 +43,6 @@ Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Requires:	SDL-devel
-Requires:	pulseaudio-devel
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}%{apiver}-devel = %{version}-%{release}
