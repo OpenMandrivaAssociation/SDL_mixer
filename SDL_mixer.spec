@@ -6,7 +6,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	1.2.8
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	LGPLv+2
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -16,6 +16,7 @@ Patch2:		SDL_mixer-1.2.7-link-against-system-libmikmod.patch
 Patch3:		SDL_mixer-1.2.7-timidity-crash.patch
 Patch4:		SDL_mixer-1.2.4-64bit-fix.patch
 Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
+Patch6:		SDL_mixer-1.2.8-double-free.patch
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
@@ -69,6 +70,7 @@ This package contains binary to test the associated library.
 #patch3 -p0 -b .timidity_crash
 %patch4 -p0 -b .64bit
 #patch5 -p0 -b .endian
+%patch6
 
 %build
 #gw our libtool is too old
