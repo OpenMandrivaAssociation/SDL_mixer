@@ -16,6 +16,8 @@ Patch2:		SDL_mixer-1.2.7-link-against-system-libmikmod.patch
 Patch3:		SDL_mixer-1.2.7-timidity-crash.patch
 Patch4:		SDL_mixer-1.2.4-64bit-fix.patch
 Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
+#gw see https://qa.mandriva.com/show_bug.cgi?id=42160
+# remove this unless the bug is handled properly
 Patch6:		SDL_mixer-1.2.8-double-free.patch
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
