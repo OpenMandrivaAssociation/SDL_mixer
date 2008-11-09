@@ -6,7 +6,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	1.2.8
-Release:	%mkrel 8
+Release:	%mkrel 9
 License:	LGPLv+2
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
