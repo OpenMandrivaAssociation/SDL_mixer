@@ -19,6 +19,7 @@ Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
 #gw see https://qa.mandriva.com/show_bug.cgi?id=42160
 # remove this unless the bug is handled properly
 Patch6:		SDL_mixer-1.2.8-double-free.patch
+Patch7:		SDL_mixer-1.2.8-link-with-lm.patch
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
@@ -72,13 +73,16 @@ This package contains binary to test the associated library.
 #patch3 -p0 -b .timidity_crash
 %patch4 -p0 -b .64bit
 #patch5 -p0 -b .endian
+%patch7  -p0 -b .lm
 %patch6
 
 %build
+#teuf rerunning aclocal/autoconf is only needed for patch2 which is disabled
+#for now
 #gw our libtool is too old
-%define __cputoolize true
-aclocal
-autoconf
+#define __cputoolize true
+#aclocal
+#autoconf
 %configure2_5x	--enable-music-libmikmod=yes \
 		--enable-music-native-midi \
 		--disable-music-ogg-shared \
