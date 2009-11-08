@@ -6,7 +6,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	1.2.8
-Release:	%mkrel 10
+Release:	%mkrel 11
 License:	LGPLv+2
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -25,6 +25,7 @@ BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	libz-devel
+BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
