@@ -2,24 +2,16 @@
 %define apiver 1.2
 %define	libname %mklibname %{name} %{apiver} %{major}
 %define develname %mklibname %{name} -d
+%define version 1.2.11
 
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
-Version:	1.2.8
-Release:	%mkrel 12
-License:	LGPLv+2
+Version:	%{version}
+Release:	%mkrel 1
+License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
-Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.bz2
-Patch1:		SDL_mixer-1.2.7-fix-path-timidity.patch
-Patch2:		SDL_mixer-1.2.7-link-against-system-libmikmod.patch
-Patch3:		SDL_mixer-1.2.7-timidity-crash.patch
-Patch4:		SDL_mixer-1.2.4-64bit-fix.patch
-Patch5:		SDL_mixer-1.2.5-endian-fixes.patch
-#gw see https://qa.mandriva.com/show_bug.cgi?id=42160
-# remove this unless the bug is handled properly
-Patch6:		SDL_mixer-1.2.8-double-free.patch
-Patch7:		SDL_mixer-1.2.8-link-with-lm.patch
+Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
@@ -27,7 +19,8 @@ BuildRequires:	oggvorbis-devel
 BuildRequires:	libz-devel
 BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:	libflac-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 SDL_mixer is a sample multi-channel audio mixer library. It supports any
@@ -38,7 +31,7 @@ and SMPEG MP3 libraries.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
-Obsoletes:	%{_lib}SDL_mixer1.2 < 1.2.8-2
+Obsoletes:	%{_lib}SDL_mixer1.2_0 < 1.2.10
 
 %description -n	%{libname}
 This package contains the library needed to run programs dynamically
@@ -52,7 +45,7 @@ Requires:	SDL-devel
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}%{apiver}-devel = %{version}-%{release}
-Obsoletes:	%{_lib}SDL_mixer1.2-devel < 1.2.8-2
+Obsoletes:	%{_lib}SDL_mixer1.2-devel < 1.2.10
 
 %description -n %{develname}
 This package contains the headers that programmers will need to develop
@@ -61,7 +54,7 @@ applications which will use %{name}.
 %package -n %{name}-player
 Summary:	Players using %{name}
 Group:		System/Libraries
-Obsoletes:	%{_lib}SDL_mixer-test < 1.2.8-3
+Obsoletes:	%{_lib}SDL_mixer-test < 1.2.10
 Requires:	%{libname} = %{version}-%{release}
 
 %description -n %{name}-player
@@ -69,26 +62,17 @@ This package contains binary to test the associated library.
 
 %prep
 %setup -q
-%patch1 -p1 -b .timidity
-#patch2 -p1 -b .libmikmod
-#patch3 -p0 -b .timidity_crash
-%patch4 -p0 -b .64bit
-#patch5 -p0 -b .endian
-%patch7  -p0 -b .lm
-%patch6
 
 %build
-#teuf rerunning aclocal/autoconf is only needed for patch2 which is disabled
-#for now
-#gw our libtool is too old
-#define __cputoolize true
-#aclocal
-#autoconf
 %configure2_5x	--enable-music-libmikmod=yes \
 		--enable-music-native-midi \
-		--disable-music-ogg-shared \
+		--enable-music-ogg-shared \
 		--disable-music-mp3-shared
 %make
+
+iconv -f ISO-8859-1 -t UTF-8 CHANGES > CHANGES.tmp
+touch -r CHANGES CHANGES.tmp
+mv CHANGES.tmp CHANGES
 
 %install
 rm -rf %{buildroot}
@@ -113,7 +97,7 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%doc mikmod/AUTHORS mikmod/README
+##%doc mikmod/AUTHORS mikmod/README
 %doc timidity/FAQ timidity/README
 %{_libdir}/lib*%{apiver}.so.%{major}*
 
@@ -123,3 +107,4 @@ rm -rf %{buildroot}
 %{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
+%{_libdir}/pkgconfig/%{name}.pc
