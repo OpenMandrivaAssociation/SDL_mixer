@@ -7,7 +7,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	%{version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -64,9 +64,16 @@ This package contains binary to test the associated library.
 %setup -q
 
 %build
+# (Anssi 02/2010) The below --disable-music-foo-shared options do not disable
+# support for the format in question. They just disable dlopen, and using the
+# shared libraries directly, allowing rpm autodeps to work. Just using dlopen
+# on them would make it quite likely that adding the deps later on downstream
+# packages using SDL_mixer manually would be forgotten.
 %configure2_5x	--enable-music-libmikmod=yes \
 		--enable-music-native-midi \
-		--enable-music-ogg-shared \
+		--disable-music-ogg-shared \
+		--disable-music-flac-shared \
+		--disable-music-mod-shared \
 		--disable-music-mp3-shared
 %make
 
