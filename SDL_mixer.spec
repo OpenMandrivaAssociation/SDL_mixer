@@ -32,6 +32,7 @@ and SMPEG MP3 libraries.
 Summary:	Main library for %{name}
 Group:		System/Libraries
 Obsoletes:	%{_lib}SDL_mixer1.2_0 < 1.2.10
+Provides:	%{name} = %{version}-%{release}
 
 %description -n	%{libname}
 This package contains the library needed to run programs dynamically
