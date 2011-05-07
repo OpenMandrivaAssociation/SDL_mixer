@@ -20,6 +20,7 @@ BuildRequires:	libz-devel
 BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
 BuildRequires:	libflac-devel
+BuildRequires:	libstdc++-static-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
