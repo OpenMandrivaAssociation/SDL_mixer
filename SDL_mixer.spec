@@ -7,7 +7,7 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	%{version}
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
@@ -86,6 +86,10 @@ mv CHANGES.tmp CHANGES
 %install
 rm -rf %{buildroot}
 %makeinstall_std install-bin
+
+%if "%{_lib}" == "lib64"
+perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
+%endif
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
