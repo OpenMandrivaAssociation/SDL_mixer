@@ -7,11 +7,12 @@
 Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
 Version:	%{version}
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
+Patch0:		SDL_mixer-1.2.11-music-crash-fix.patch
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
@@ -63,7 +64,9 @@ Requires:	%{libname} = %{version}-%{release}
 This package contains binary to test the associated library.
 
 %prep
+
 %setup -q
+%patch0 -p0
 
 %build
 # (Anssi 02/2010) The below --disable-music-foo-shared options do not disable
@@ -89,14 +92,6 @@ rm -rf %{buildroot}
 
 %if "%{_lib}" == "lib64"
 perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
-%endif
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
 %endif
 
 %clean
