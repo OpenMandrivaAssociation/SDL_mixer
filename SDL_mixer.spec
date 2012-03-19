@@ -1,18 +1,16 @@
-%define	major 0
-%define apiver 1.2
-%define	libname %mklibname %{name} %{apiver} %{major}
-%define develname %mklibname %{name} -d
-%define version 1.2.11
+%define		major 0
+%define		apiver 1.2
+%define		libname %mklibname %{name} %{apiver} %{major}
+%define		develname %mklibname %{name} -d
 
-Summary:	Simple DirectMedia Layer - mixer
 Name:		SDL_mixer
-Version:	%{version}
-Release:	%mkrel 8
+Version:	1.2.12
+Release:	%mkrel 1
+Summary:	Simple DirectMedia Layer - mixer
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
-Patch0:		SDL_mixer-1.2.11-music-crash-fix.patch
 BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
@@ -22,7 +20,6 @@ BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
 BuildRequires:	libflac-devel
 BuildRequires:	libstdc++-static-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 SDL_mixer is a sample multi-channel audio mixer library. It supports any
@@ -64,9 +61,7 @@ Requires:	%{libname} = %{version}-%{release}
 This package contains binary to test the associated library.
 
 %prep
-
 %setup -q
-%patch0 -p0
 
 %build
 # (Anssi 02/2010) The below --disable-music-foo-shared options do not disable
@@ -79,40 +74,39 @@ This package contains binary to test the associated library.
 		--disable-music-ogg-shared \
 		--disable-music-flac-shared \
 		--disable-music-mod-shared \
-		--disable-music-mp3-shared
+		--disable-music-mp3-shared \
+		--disable-static
 %make
 
 iconv -f ISO-8859-1 -t UTF-8 CHANGES > CHANGES.tmp
 touch -r CHANGES CHANGES.tmp
-mv CHANGES.tmp CHANGES
+%__mv CHANGES.tmp CHANGES
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall_std install-bin
 
 %if "%{_lib}" == "lib64"
-perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
+%__perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
 %endif
 
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
 %files -n %{name}-player
-%defattr(-, root, root)
 %doc README
 %{_bindir}/playwave
 %{_bindir}/playmus
 
 %files -n %{libname}
-%defattr(-,root,root)
-##%doc mikmod/AUTHORS mikmod/README
 %doc timidity/FAQ timidity/README
 %{_libdir}/lib*%{apiver}.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc README CHANGES
-%{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
 %{_libdir}/pkgconfig/%{name}.pc
+%if %{mdvver} < 201200
+%{_libdir}/*a
+%endif
