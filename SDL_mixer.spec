@@ -15,7 +15,7 @@ BuildRequires:	SDL-devel >= 1.2.10
 BuildRequires:	esound-devel
 BuildRequires:	libmikmod-devel
 BuildRequires:	oggvorbis-devel
-BuildRequires:	libz-devel
+BuildRequires:	zlib-devel
 BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
 BuildRequires:	libflac-devel
