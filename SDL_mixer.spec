@@ -5,12 +5,14 @@
 
 Name:		SDL_mixer
 Version:	1.2.12
-Release:	2
+Release:	3
 Summary:	Simple DirectMedia Layer - mixer
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
+Patch0:		SDL_mixer-MikMod-1.patch
+Patch1:		SDL_mixer-MikMod-2.patch
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(esound)
 BuildRequires:	libmikmod-devel
@@ -60,6 +62,8 @@ This package contains binary to test the associated library.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 # (Anssi 02/2010) The below --disable-music-foo-shared options do not disable
