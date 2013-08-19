@@ -14,7 +14,8 @@ Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar
 Patch0:		SDL_mixer-MikMod-1.patch
 Patch1:		SDL_mixer-MikMod-2.patch
 BuildRequires:	pkgconfig(sdl)
-BuildRequires:	pkgconfig(esound)
+#BuildRequires:	pkgconfig(esound)
+BuildRequires:	pkgconfig(fluidsynth)
 BuildRequires:	libmikmod-devel
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	zlib-devel
