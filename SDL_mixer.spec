@@ -2,6 +2,7 @@
 %define		apiver 1.2
 %define		libname %mklibname %{name} %{apiver} %{major}
 %define		develname %mklibname %{name} -d
+%define		_disable_lto 1
 
 Name:		SDL_mixer
 Version:	1.2.12
