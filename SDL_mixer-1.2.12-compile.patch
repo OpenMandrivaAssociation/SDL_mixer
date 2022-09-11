@@ -1,0 +1,11 @@
+diff -up SDL_mixer-1.2.12/mixer.c.omv~ SDL_mixer-1.2.12/mixer.c
+--- SDL_mixer-1.2.12/mixer.c.omv~	2022-09-12 00:58:04.967572668 +0200
++++ SDL_mixer-1.2.12/mixer.c	2022-09-12 00:58:20.457693130 +0200
+@@ -35,6 +35,7 @@
+ #include "load_ogg.h"
+ #include "load_flac.h"
+ #include "dynamic_flac.h"
++#include "dynamic_fluidsynth.h"
+ #include "dynamic_mod.h"
+ #include "dynamic_mp3.h"
+ #include "dynamic_ogg.h"

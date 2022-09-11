@@ -6,7 +6,7 @@
 
 Name:		SDL_mixer
 Version:	1.2.12
-Release:	17
+Release:	18
 Summary:	Simple DirectMedia Layer - mixer
 License:	LGPLv2+
 Group:		System/Libraries
@@ -14,8 +14,8 @@ URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 Patch0:		SDL_mixer-MikMod-1.patch
 Patch1:		SDL_mixer-MikMod-2.patch
+Patch2:		SDL_mixer-1.2.12-compile.patch
 BuildRequires:	pkgconfig(sdl)
-#BuildRequires:	pkgconfig(esound)
 BuildRequires:	pkgconfig(fluidsynth)
 BuildRequires:	libmikmod-devel
 BuildRequires:	pkgconfig(vorbis)
@@ -24,6 +24,7 @@ BuildRequires:	nas-devel
 BuildRequires:	smpeg-devel >= 0.4.3
 BuildRequires:	pkgconfig(flac)
 BuildRequires:	libstdc++-static-devel
+BuildRequires:	locales-extra-charsets
 
 %description
 SDL_mixer is a sample multi-channel audio mixer library. It supports any
