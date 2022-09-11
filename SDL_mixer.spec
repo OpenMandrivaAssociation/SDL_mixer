@@ -64,9 +64,7 @@ Requires:	%{libname} = %{version}-%{release}
 This package contains binary to test the associated library.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 %build
 # (Anssi 02/2010) The below --disable-music-foo-shared options do not disable
@@ -74,21 +72,21 @@ This package contains binary to test the associated library.
 # shared libraries directly, allowing rpm autodeps to work. Just using dlopen
 # on them would make it quite likely that adding the deps later on downstream
 # packages using SDL_mixer manually would be forgotten.
-%configure2_5x	--enable-music-libmikmod=yes \
+%configure	--enable-music-libmikmod=yes \
 		--enable-music-native-midi \
 		--disable-music-ogg-shared \
 		--disable-music-flac-shared \
 		--disable-music-mod-shared \
 		--disable-music-mp3-shared \
 		--disable-static
-%make
+%make_build
 
 iconv -f ISO-8859-1 -t UTF-8 CHANGES > CHANGES.tmp
 touch -r CHANGES CHANGES.tmp
 %__mv CHANGES.tmp CHANGES
 
 %install
-%makeinstall_std install-bin
+%make_install install-bin
 
 %files -n %{name}-player
 %doc README
