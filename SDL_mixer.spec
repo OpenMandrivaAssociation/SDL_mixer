@@ -6,7 +6,7 @@
 
 Name:		SDL_mixer
 Version:	1.2.12
-Release:	18
+Release:	19
 Summary:	Simple DirectMedia Layer - mixer
 License:	LGPLv2+
 Group:		System/Libraries
