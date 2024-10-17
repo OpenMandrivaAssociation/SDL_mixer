@@ -10,7 +10,7 @@ Release:	19
 Summary:	Simple DirectMedia Layer - mixer
 License:	LGPLv2+
 Group:		System/Libraries
-URL:		http://www.libsdl.org/projects/SDL_mixer/
+URL:		https://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 Patch0:		SDL_mixer-MikMod-1.patch
 Patch1:		SDL_mixer-MikMod-2.patch
