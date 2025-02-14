@@ -4,6 +4,8 @@
 %define		develname %mklibname %{name} -d
 %define		_disable_lto 1
 
+%global optflags %{optflags} -Wno-incompatible-function-pointer-types
+
 Name:		SDL_mixer
 Version:	1.2.12
 Release:	21
