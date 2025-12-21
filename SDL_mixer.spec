@@ -17,6 +17,11 @@ Source0:	http://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar
 Patch0:		SDL_mixer-MikMod-1.patch
 Patch1:		SDL_mixer-MikMod-2.patch
 Patch2:		SDL_mixer-1.2.12-compile.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(fluidsynth)
 BuildRequires:	libmikmod-devel
